@@ -1,36 +1,4 @@
 # Databricks notebook source
-# MAGIC %md-sandbox
-# MAGIC
-# MAGIC <div style="text-align: center; line-height: 0; padding-top: 9px;">
-# MAGIC   <img src="https://databricks.com/wp-content/uploads/2018/03/db-academy-rgb-1200px.png" alt="Databricks Learning" style="width: 600px">
-# MAGIC </div>
-
-# COMMAND ----------
-
-# MAGIC %md
-# MAGIC
-# MAGIC # LLMs with Hugging Face
-# MAGIC
-# MAGIC **Choosing a pre-trained LLM**: In the demo notebook, you saw how to apply pre-trained models to many applications.  You will do that hands-on in this lab, with your main activity being to find a good model for each task.  Use the tips from the lecture and demo to find good models, and don't hesitate to try a few different possibilities.
-# MAGIC
-# MAGIC **Understanding LLM pipeline configurations**: At the end of this lab, you will also do a more open-ended exploration of model and tokenizer configurations.
-# MAGIC
-# MAGIC ### ![Dolly](https://files.training.databricks.com/images/llm/dolly_small.png) Learning Objectives
-# MAGIC 1. Practice finding an existing model for tasks you want to solve with LLMs.
-# MAGIC 1. Understand the basics of model and tokenizer options for tweaking model outputs and performance.
-
-# COMMAND ----------
-
-# MAGIC %md
-# MAGIC
-# MAGIC ## Classroom Setup
-
-# COMMAND ----------
-
-# MAGIC %run ../Includes/Classroom-Setup
-
-# COMMAND ----------
-
 # MAGIC %md ## Find good models for your tasks
 # MAGIC
 # MAGIC In each subsection below, you will solve a given task with an LLM of your choosing.  These tasks vary from straightforward to open-ended:
@@ -360,17 +328,3 @@ display_summaries(decoded_summaries)
 
 # Options for calling the tokenizer for decoding (not much to see here)
 # help(tokenizer.batch_decode)
-
-# COMMAND ----------
-
-# MAGIC %md ## Submit your Results (edX Verified Only)
-# MAGIC
-# MAGIC To get credit for this lab, click the submit button in the top right to report the results. If you run into any issues, click `Run` -> `Clear state and run all`, and make sure all tests have passed before re-submitting. If you accidentally deleted any tests, take a look at the notebook's version history to recover them or reload the notebooks.
-
-# COMMAND ----------
-
-# MAGIC %md-sandbox
-# MAGIC &copy; 2023 Databricks, Inc. All rights reserved.<br/>
-# MAGIC Apache, Apache Spark, Spark and the Spark logo are trademarks of the <a href="https://www.apache.org/">Apache Software Foundation</a>.<br/>
-# MAGIC <br/>
-# MAGIC <a href="https://databricks.com/privacy-policy">Privacy Policy</a> | <a href="https://databricks.com/terms-of-use">Terms of Use</a> | <a href="https://help.databricks.com/">Support</a>

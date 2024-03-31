@@ -1,43 +1,5 @@
 # Databricks notebook source
-# MAGIC %md-sandbox
-# MAGIC
-# MAGIC <div style="text-align: center; line-height: 0; padding-top: 9px;">
-# MAGIC   <img src="https://databricks.com/wp-content/uploads/2018/03/db-academy-rgb-1200px.png" alt="Databricks Learning" style="width: 600px">
-# MAGIC </div>
-
-# COMMAND ----------
-
 # MAGIC %md
-# MAGIC
-# MAGIC # LLMs with Hugging Face
-# MAGIC
-# MAGIC In this notebook, we'll take a whirlwind tour of some top applications using Large Language Models (LLMs):
-# MAGIC * Summarization
-# MAGIC * Sentiment analysis
-# MAGIC * Translation
-# MAGIC * Zero-shot classification
-# MAGIC * Few-shot learning
-# MAGIC
-# MAGIC We will see how existing, open-source (and proprietary) models can be used out-of-the-box for many applications.  For this, we will use [Hugging Face models](https://huggingface.co/models) and some simple prompt engineering.
-# MAGIC
-# MAGIC We will then look at Hugging Face APIs in more detail to understand how to configure LLM pipelines.
-# MAGIC
-# MAGIC ### ![Dolly](https://files.training.databricks.com/images/llm/dolly_small.png) Learning Objectives
-# MAGIC 1. Use a variety of existing models for a variety of common applications.
-# MAGIC 1. Understand basic prompt engineering.
-# MAGIC 1. Understand search vs. sampling for LLM inference.
-# MAGIC 1. Get familiar with the main Hugging Face abstractions: datasets, pipelines, tokenizers, and models.
-
-# COMMAND ----------
-
-# MAGIC %md
-# MAGIC
-# MAGIC ## Classroom Setup
-
-# COMMAND ----------
-
-# MAGIC %md
-# MAGIC Libraries:
 # MAGIC * [sacremoses](https://github.com/alvations/sacremoses) is for the translation model `Helsinki-NLP/opus-mt-en-es`
 
 # COMMAND ----------
@@ -46,34 +8,19 @@
 
 # COMMAND ----------
 
-# MAGIC %run ../Includes/Classroom-Setup
-
-# COMMAND ----------
-
-# MAGIC %md ## Common LLM applications
-# MAGIC
-# MAGIC The goal of this section is to get your feet wet with several LLM applications and to show how easy it can be to get started with LLMs.
-# MAGIC
-# MAGIC As you go through the examples, note the datasets, models, APIs, and options used.  These simple examples can be starting points when you need to build your own application.
-
-# COMMAND ----------
-
 from datasets import load_dataset
 from transformers import pipeline
 
 # COMMAND ----------
 
-# MAGIC %md ### Summarization
-# MAGIC
-# MAGIC Summarization can take two forms:
+# MAGIC %md
 # MAGIC * `extractive` (selecting representative excerpts from the text)
 # MAGIC * `abstractive` (generating novel text summaries)
 # MAGIC
-# MAGIC Here, we will use a model which does *abstractive* summarization.
+# MAGIC Sandbox below uses *abstractive* summarization.
 # MAGIC
-# MAGIC **Background reading**: The [Hugging Face summarization task page](https://huggingface.co/docs/transformers/tasks/summarization) lists model architectures which support summarization. The [summarization course chapter](https://huggingface.co/course/chapter7/5) provides a detailed walkthrough.
+# MAGIC The [Hugging Face summarization task page](https://huggingface.co/docs/transformers/tasks/summarization) lists model architectures which support summarization. The [summarization course chapter](https://huggingface.co/course/chapter7/5) provides a detailed walkthrough.
 # MAGIC
-# MAGIC In this section, we will use:
 # MAGIC * **Data**: [xsum](https://huggingface.co/datasets/xsum) dataset, which provides a set of BBC articles and summaries.
 # MAGIC * **Model**: [t5-small](https://huggingface.co/t5-small) model, which has 60 million parameters (242MB for PyTorch).  T5 is an encoder-decoder model created by Google which supports several tasks such as summarization, translation, Q&A, and text classification.  For more details, see the [Google blog post](https://ai.googleblog.com/2020/02/exploring-transfer-learning-with-t5.html), [code on GitHub](https://github.com/google-research/text-to-text-transfer-transformer), or the [research paper](https://arxiv.org/pdf/1910.10683.pdf).
 
@@ -88,7 +35,7 @@ xsum_dataset  # The printed representation of this object shows the `num_rows` o
 
 # MAGIC %md This dataset provides 3 columns:
 # MAGIC * `document`: the BBC article text
-# MAGIC * `summary`: a "ground-truth" summary --> Note how subjective this "ground-truth" is.  Is this the same summary you would write?  This a great example of how many LLM applications do not have obvious "right" answers.
+# MAGIC * `summary`: a "ground-truth" summary 
 # MAGIC * `id`: article ID
 
 # COMMAND ----------
@@ -141,13 +88,9 @@ display(
 
 # COMMAND ----------
 
-# MAGIC %md ### Sentiment analysis
+# MAGIC %md 
+# MAGIC See the Hugging Face [task page on text classification](https://huggingface.co/tasks/text-classification) or [Wikipedia on sentiment analysis](https://en.wikipedia.org/wiki/Sentiment_analysis).
 # MAGIC
-# MAGIC Sentiment analysis is a text classification task of estimating whether a piece of text is positive, negative, or another "sentiment" label.  The precise set of sentiment labels can vary across applications.
-# MAGIC
-# MAGIC **Background reading**: See the Hugging Face [task page on text classification](https://huggingface.co/tasks/text-classification) or [Wikipedia on sentiment analysis](https://en.wikipedia.org/wiki/Sentiment_analysis).
-# MAGIC
-# MAGIC In this section, we will use:
 # MAGIC * **Data**: [poem sentiment](https://huggingface.co/datasets/poem_sentiment) dataset, which provides lines from poems tagged with sentiments `negative` (0), `positive` (1), `no_impact` (2), or `mixed` (3).
 # MAGIC * **Model**: [fine-tuned version of BERT](https://huggingface.co/nickwong64/bert-base-uncased-poems-sentiment).  BERT, or Bidirectional Encoder Representations from Transformers, is an encoder-only model from Google usable for 11+ tasks such as sentiment analysis and entity recognition.  For more details, see this [Hugging Face blog post](https://huggingface.co/blog/bert-101) or the [Wikipedia page](https://en.wikipedia.org/wiki/BERT_&#40;language_model&#41;).
 
@@ -195,21 +138,13 @@ display(joined_data[["predicted_label", "true_label", "score", "verse_text"]])
 
 # COMMAND ----------
 
-# MAGIC %md ### Translation
+# MAGIC %md
+# MAGIC Hugging Face [task page on translation](https://huggingface.co/tasks/translation) or the [Wikipedia page on machine translation](https://en.wikipedia.org/wiki/Machine_translation).
 # MAGIC
-# MAGIC Translation models may be designed for specific pairs of languages, or they may support more than two languages.  We will see both below.
-# MAGIC
-# MAGIC **Background reading**: See the Hugging Face [task page on translation](https://huggingface.co/tasks/translation) or the [Wikipedia page on machine translation](https://en.wikipedia.org/wiki/Machine_translation).
-# MAGIC
-# MAGIC In this section, we will use:
 # MAGIC * **Data**: We will use some example hard-coded sentences.  However, there are a variety of [translation datasets](https://huggingface.co/datasets?task_categories=task_categories:translation&sort=downloads) available from Hugging Face.
 # MAGIC * **Models**:
 # MAGIC    * [Helsinki-NLP/opus-mt-en-es](https://huggingface.co/Helsinki-NLP/opus-mt-en-es) is used for the first example of English ("en") to Spanish ("es") translation.  This model is based on [Marian NMT](https://marian-nmt.github.io/), a neural machine translation framework developed by Microsoft and other researchers.  See the [GitHub page](https://github.com/Helsinki-NLP/Opus-MT) for code and links to related resources.
 # MAGIC    * [t5-small](https://huggingface.co/t5-small) model, which has 60 million parameters (242MB for PyTorch).  T5 is an encoder-decoder model created by Google which supports several tasks such as summarization, translation, Q&A, and text classification.  For more details, see the [Google blog post](https://ai.googleblog.com/2020/02/exploring-transfer-learning-with-t5.html), [code on GitHub](https://github.com/google-research/text-to-text-transfer-transformer), or the [research paper](https://arxiv.org/pdf/1910.10683.pdf).  For our purposes, it supports translation for English, French, Romanian, and German.
-
-# COMMAND ----------
-
-# MAGIC %md Some models are designed for specific language-to-language translation.  Below, we use an English-to-Spanish model.
 
 # COMMAND ----------
 
@@ -224,10 +159,6 @@ en_to_es_translation_pipeline = pipeline(
 en_to_es_translation_pipeline(
     "Existing, open-source (and proprietary) models can be used out-of-the-box for many applications."
 )
-
-# COMMAND ----------
-
-# MAGIC %md Other models are designed to handle multiple languages.  Below, we show this with `t5-small`.  Note that, since it supports multiple languages (and tasks), we give it an explicit instruction to translate from one language to another.
 
 # COMMAND ----------
 
@@ -252,13 +183,9 @@ t5_small_pipeline(
 
 # COMMAND ----------
 
-# MAGIC %md ### Zero-shot classification
+# MAGIC %md
+# MAGIC Hugging Face [task page on zero-shot classification](https://huggingface.co/tasks/zero-shot-classification) or [Wikipedia on zero-shot learning](https://en.wikipedia.org/wiki/Zero-shot_learning).
 # MAGIC
-# MAGIC Zero-shot classification (or zero-shot learning) is the task of classifying a piece of text into one of a few given categories or labels, without having explicitly trained the model to predict those categories beforehand.  The idea appeared in literature before modern LLMs, but recent advances in LLMs have made zero-shot learning much more flexible and powerful.
-# MAGIC
-# MAGIC **Background reading**: See the Hugging Face [task page on zero-shot classification](https://huggingface.co/tasks/zero-shot-classification) or [Wikipedia on zero-shot learning](https://en.wikipedia.org/wiki/Zero-shot_learning).
-# MAGIC
-# MAGIC In this section, we will use:
 # MAGIC * **Data**: a few example articles from the [xsum](https://huggingface.co/datasets/xsum) dataset used in the Summarization section above.  Our goal is to label news articles under a few categories.
 # MAGIC * **Model**: [nli-deberta-v3-small](https://huggingface.co/cross-encoder/nli-deberta-v3-small), a fine-tuned version of the DeBERTa model.  The DeBERTa base model was developed by Microsoft and is one of several models derived from BERT; for more details on DeBERTa, see the [Hugging Face doc page](https://huggingface.co/docs/transformers/model_doc/deberta), the [code on GitHub](https://github.com/microsoft/DeBERTa), or the [research paper](https://arxiv.org/abs/2006.03654).
 
@@ -350,13 +277,9 @@ Have you been affected by flooding in Dumfries and Galloway or the Borders? Tell
 
 # COMMAND ----------
 
-# MAGIC %md ### Few-shot learning
+# MAGIC %md
+# MAGIC [Wikipedia page on few-shot learning](https://en.wikipedia.org/wiki/Few-shot_learning_&#40;natural_language_processing&#41;) or [this Hugging Face blog about few-shot learning](https://huggingface.co/blog/few-shot-learning-gpt-neo-and-inference-api).
 # MAGIC
-# MAGIC In few-shot learning tasks, you give the model an instruction, a few query-response examples of how to follow that instruction, and then a new query.  The model must generate the response for that new query.  This technique has pros and cons: it is very powerful and allows models to be reused for many more applications, but it can be finicky and require significant prompt engineering to get good and reliable results.
-# MAGIC
-# MAGIC **Background reading**: See the [Wikipedia page on few-shot learning](https://en.wikipedia.org/wiki/Few-shot_learning_&#40;natural_language_processing&#41;) or [this Hugging Face blog about few-shot learning](https://huggingface.co/blog/few-shot-learning-gpt-neo-and-inference-api).
-# MAGIC
-# MAGIC In this section, we will use:
 # MAGIC * **Task**: Few-shot learning can be applied to many tasks.  Here, we will do sentiment analysis, which was covered earlier.  However, you will see how few-shot learning allows us to specify custom labels, whereas the previous model was tuned for a specific set of labels.  We will also show other (toy) tasks at the end.  In terms of the Hugging Face `task` specified in the `pipeline` constructor, few-shot learning is handled as a `text-generation` task.
 # MAGIC * **Data**: We use a few examples, including a tweet example from the blog post linked above.
 # MAGIC * **Model**: [gpt-neo-1.3B](https://huggingface.co/EleutherAI/gpt-neo-1.3B), a version of the GPT-Neo model discussed in the blog linked above.  It is a transformer model with 1.3 billion parameters developed by Eleuther AI.  For more details, see the [code on GitHub](https://github.com/EleutherAI/gpt-neo) or the [research paper](https://arxiv.org/abs/2204.06745).
@@ -433,7 +356,7 @@ print(results[0]["generated_text"])
 
 # COMMAND ----------
 
-# MAGIC %md Just for fun, we show a few more examples below.
+# MAGIC %md A few more examples below.
 
 # COMMAND ----------
 
@@ -505,21 +428,21 @@ print(results[0]["generated_text"])
 
 # COMMAND ----------
 
-# MAGIC %md **Prompt engineering** is a new but critical technique for working with LLMs.  You saw some brief examples above.  As you use more general and powerful models, constructing good prompts becomes ever more important.  Some great resources to learn more are:
+# MAGIC %md
+# MAGIC prompt engineering
 # MAGIC * [Wikipedia](https://en.wikipedia.org/wiki/Prompt_engineering) for a brief overview
 # MAGIC * [Best practices for prompt engineering with OpenAI API](https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api)
 # MAGIC * [🧠 Awesome ChatGPT Prompts](https://github.com/f/awesome-chatgpt-prompts) for fun examples with ChatGPT
 
 # COMMAND ----------
 
-# MAGIC %md ## Hugging Face APIs
-# MAGIC
-# MAGIC In this section, we dive into some more details on Hugging Face APIs.
+# MAGIC %md
+# MAGIC Hugging Face APIs
 # MAGIC * Search and sampling to generate text
 # MAGIC * Auto* loaders for tokenizers and models
 # MAGIC * Model-specific loaders
 # MAGIC
-# MAGIC Recall the `xsum` dataset from the **Summarization** section above:
+# MAGIC Recall the `xsum` dataset
 
 # COMMAND ----------
 
@@ -531,9 +454,7 @@ display(xsum_sample.to_pandas())
 # MAGIC
 # MAGIC You may see parameters like `num_beams`, `do_sample`, etc. specified in Hugging Face pipelines.  These are inference configurations.
 # MAGIC
-# MAGIC LLMs work by predicting (generating) the next token, then the next, and so on.  The goal is to generate a high probability sequence of tokens, which is essentially a search through the (enormous) space of potential sequences.
-# MAGIC
-# MAGIC To do this search, LLMs use one of two main methods:
+# MAGIC LLMs use one of two main methods:
 # MAGIC * **Search**: Given the tokens generated so far, pick the next most likely token in a "search."
 # MAGIC    * **Greedy search** (default): Pick the single next most likely token in a greedy search.
 # MAGIC    * **Beam search**: Greedy search can be extended via beam search, which searches down several sequence paths, via the parameter `num_beams`.
@@ -543,9 +464,9 @@ display(xsum_sample.to_pandas())
 # MAGIC
 # MAGIC You can toggle between search and sampling via parameter `do_sample`.
 # MAGIC
-# MAGIC For more background on search and sampling, see [this Hugging Face blog post](https://huggingface.co/blog/how-to-generate).
+# MAGIC [Hugging Face blog post](https://huggingface.co/blog/how-to-generate).
 # MAGIC
-# MAGIC We will illustrate these various options below using our summarization pipeline.
+# MAGIC Search using the summarization pipeline.
 
 # COMMAND ----------
 
@@ -571,9 +492,9 @@ summarizer(xsum_sample["document"][0], do_sample=True, top_k=10, top_p=0.8)
 
 # COMMAND ----------
 
-# MAGIC %md ### Auto* loaders for tokenizers and models
-# MAGIC
-# MAGIC We have already seen the `dataset` and `pipeline` abstractions from Hugging Face.  While a `pipeline` is a quick way to set up an LLM for a given task, the slightly lower-level abstractions `model` and `tokenizer` permit a bit more control over options.  We will show how to use those briefly, following this pattern:
+# MAGIC %md ### 
+# MAGIC Auto* loaders for tokenizers and models
+# MAGIC `pipeline` is a quick way to set up an LLM for a given task, the slightly lower-level abstractions `model` and `tokenizer` permit a bit more control over options. 
 # MAGIC
 # MAGIC * Given input articles.
 # MAGIC * Tokenize them (converting to token indices).
@@ -633,7 +554,7 @@ display(pd.DataFrame(decoded_summaries, columns=["decoded_summaries"]))
 
 # MAGIC %md ### Model-specific tokenizer and model loaders
 # MAGIC
-# MAGIC You can also more directly load specific tokenizer and model types, rather than relying on `Auto*` classes to choose the right ones for you.
+# MAGIC Directly load specific tokenizer and model types, rather than relying on `Auto*` classes to choose the right ones for you.
 # MAGIC
 # MAGIC API docs:
 # MAGIC * [T5Tokenizer](https://huggingface.co/docs/transformers/main/en/model_doc/t5#transformers.T5Tokenizer)
@@ -664,19 +585,3 @@ summary_ids = model.generate(
 decoded_summaries = tokenizer.batch_decode(summary_ids, skip_special_tokens=True)
 
 display(pd.DataFrame(decoded_summaries, columns=["decoded_summaries"]))
-
-# COMMAND ----------
-
-# MAGIC %md ## Summary
-# MAGIC
-# MAGIC We've covered some common LLM applications and seen how to get started with them quickly using pre-trained models from the Hugging Face Hub.  We've also see how to tweak some configurations.
-# MAGIC
-# MAGIC But how did we find those models for our tasks?  In the lab, you will find new pre-trained models for tasks, using the Hugging Face Hub.  You will also explore tweaking model configurations to gain intuition about their effects.
-
-# COMMAND ----------
-
-# MAGIC %md-sandbox
-# MAGIC &copy; 2023 Databricks, Inc. All rights reserved.<br/>
-# MAGIC Apache, Apache Spark, Spark and the Spark logo are trademarks of the <a href="https://www.apache.org/">Apache Software Foundation</a>.<br/>
-# MAGIC <br/>
-# MAGIC <a href="https://databricks.com/privacy-policy">Privacy Policy</a> | <a href="https://databricks.com/terms-of-use">Terms of Use</a> | <a href="https://help.databricks.com/">Support</a>
