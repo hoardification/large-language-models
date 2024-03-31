@@ -1,36 +1,5 @@
 # Databricks notebook source
-# MAGIC %md-sandbox
-# MAGIC
-# MAGIC <div style="text-align: center; line-height: 0; padding-top: 9px;">
-# MAGIC   <img src="https://databricks.com/wp-content/uploads/2018/03/db-academy-rgb-1200px.png" alt="Databricks Learning" style="width: 600px">
-# MAGIC </div>
-
-# COMMAND ----------
-
-# MAGIC %md
-# MAGIC
-# MAGIC # 02L - Embeddings, Vector Databases, and Search
-# MAGIC
-# MAGIC
-# MAGIC In this lab, we will apply the text vectorization, search, and question answering workflow that you learned in the demo. The dataset we will use this time will be on talk titles and sessions from [Data + AI Summit 2023](https://www.databricks.com/dataaisummit/). 
-# MAGIC
-# MAGIC ### ![Dolly](https://files.training.databricks.com/images/llm/dolly_small.png) Learning Objectives
-# MAGIC 1. Learn how to use Chroma to store your embedding vectors and conduct similarity search
-# MAGIC 1. Use OpenAI GPT-3.5 to generate response to your prompt
-
-# COMMAND ----------
-
 # MAGIC %pip install chromadb==0.3.21 tiktoken==0.3.3
-
-# COMMAND ----------
-
-# MAGIC %md
-# MAGIC
-# MAGIC ## Classroom Setup
-
-# COMMAND ----------
-
-# MAGIC %run ../Includes/Classroom-Setup
 
 # COMMAND ----------
 
@@ -230,7 +199,7 @@ dbTestQuestion2_6(lm_response)
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ## OPTIONAL (Non-Graded): Use OpenAI models for Q/A
+# MAGIC Use OpenAI models for Q/A
 # MAGIC
 # MAGIC For this section to work, you need to generate an Open AI key. 
 # MAGIC
@@ -316,17 +285,3 @@ gpt35_response["usage"]["total_tokens"]
 
 # MAGIC %md
 # MAGIC The results are noticeably much better compared to when using Hugging Face's GPT-2! It didn't get stuck in the text generation, but the sessions recommended are not all relevant to pandas either. You can further do more prompt engineering to get better results.
-
-# COMMAND ----------
-
-# MAGIC %md ## Submit your Results (edX Verified Only)
-# MAGIC
-# MAGIC To get credit for this lab, click the submit button in the top right to report the results. If you run into any issues, click `Run` -> `Clear state and run all`, and make sure all tests have passed before re-submitting. If you accidentally deleted any tests, take a look at the notebook's version history to recover them or reload the notebooks.
-
-# COMMAND ----------
-
-# MAGIC %md-sandbox
-# MAGIC &copy; 2023 Databricks, Inc. All rights reserved.<br/>
-# MAGIC Apache, Apache Spark, Spark and the Spark logo are trademarks of the <a href="https://www.apache.org/">Apache Software Foundation</a>.<br/>
-# MAGIC <br/>
-# MAGIC <a href="https://databricks.com/privacy-policy">Privacy Policy</a> | <a href="https://databricks.com/terms-of-use">Terms of Use</a> | <a href="https://help.databricks.com/">Support</a>

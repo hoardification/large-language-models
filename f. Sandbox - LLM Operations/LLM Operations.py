@@ -1,16 +1,8 @@
 # Databricks notebook source
-# MAGIC %md-sandbox
-# MAGIC
-# MAGIC <div style="text-align: center; line-height: 0; padding-top: 9px;">
-# MAGIC   <img src="https://databricks.com/wp-content/uploads/2018/03/db-academy-rgb-1200px.png" alt="Databricks Learning" style="width: 600px">
-# MAGIC </div>
-
-# COMMAND ----------
-
 # MAGIC %md
 # MAGIC
-# MAGIC # LLMOps
-# MAGIC In this example, we will walk through some key steps for taking an LLM-based pipeline to production.  Our pipeline will be familiar to you from previous modules: summarization of news articles using a pre-trained model from Hugging Face.  But in this walkthrough, we will be more rigorous about LLMOps.
+# MAGIC # LLM Operations
+# MAGIC Walk through some key steps for taking an LLM-based pipeline to production.  Our pipeline will be familiar to you from previous modules: summarization of news articles using a pre-trained model from Hugging Face.  But in this walkthrough, we will be more rigorous about LLMOps.
 # MAGIC
 # MAGIC **Develop an LLM pipeline**
 # MAGIC
@@ -40,7 +32,6 @@
 # MAGIC
 # MAGIC **Promoting models vs. code**: We track the path from development to production via the MLflow Model Registry.  That is, we are *promoting models* towards production, rather than promoting code.  For more discussion of these two paradigms, see ["The Big Book of MLOps"](https://www.databricks.com/resources/ebook/the-big-book-of-mlops).
 # MAGIC
-# MAGIC ### ![Dolly](https://files.training.databricks.com/images/llm/dolly_small.png) Learning Objectives
 # MAGIC 1. Walk through a simple but realistic workflow to take an LLM pipeline from development to production.
 # MAGIC 1. Make use of MLflow Tracking and the Model Registry to package and manage the pipeline.
 # MAGIC 1. Scale out batch inference using Apache Spark and Delta Lake.
@@ -50,10 +41,6 @@
 # MAGIC %md
 # MAGIC
 # MAGIC ## Classroom Setup
-
-# COMMAND ----------
-
-# MAGIC %run ../Includes/Classroom-Setup
 
 # COMMAND ----------
 
@@ -422,20 +409,3 @@ batch_inference_results.write.format("delta").mode("append").save(
 # MAGIC We did not cover model serving for real-time inference, but MLflow models can be deployed to any cloud or on-prem serving systems.  For more information, see the [open-source MLflow Model Registry docs](https://mlflow.org/docs/latest/model-registry.html) or the [Databricks Model Serving docs](https://docs.databricks.com/machine-learning/model-serving/index.html).
 # MAGIC
 # MAGIC For other topics not covered, see ["The Big Book of MLOps."](https://www.databricks.com/resources/ebook/the-big-book-of-mlops)
-
-# COMMAND ----------
-
-# MAGIC %md ## Summary
-# MAGIC
-# MAGIC We have now walked through a full example of going from development to production.  Our LLM pipeline was very simple, but LLM Ops for a more complex workflow (such as fine-tuning a custom model) would be very similar.  You still follow the basic Ops steps of:
-# MAGIC * Development: Creating the pipeline or model, tracking the process in the MLflow Tracking server and saving the final pipeline or model.
-# MAGIC * Staging: Registering a new model or version in the MLflow Model Registry, testing it, and promoting it through Staging to Production.
-# MAGIC * Production: Creating an inference job, or creating a model serving endpoint.
-
-# COMMAND ----------
-
-# MAGIC %md-sandbox
-# MAGIC &copy; 2023 Databricks, Inc. All rights reserved.<br/>
-# MAGIC Apache, Apache Spark, Spark and the Spark logo are trademarks of the <a href="https://www.apache.org/">Apache Software Foundation</a>.<br/>
-# MAGIC <br/>
-# MAGIC <a href="https://databricks.com/privacy-policy">Privacy Policy</a> | <a href="https://databricks.com/terms-of-use">Terms of Use</a> | <a href="https://help.databricks.com/">Support</a>

@@ -1,17 +1,5 @@
 # Databricks notebook source
-# MAGIC %md-sandbox
-# MAGIC
-# MAGIC <div style="text-align: center; line-height: 0; padding-top: 9px;">
-# MAGIC   <img src="https://databricks.com/wp-content/uploads/2018/03/db-academy-rgb-1200px.png" alt="Databricks Learning" style="width: 600px">
-# MAGIC </div>
-
-# COMMAND ----------
-
 # MAGIC %md
-# MAGIC
-# MAGIC # LLMs and Society
-# MAGIC
-# MAGIC ### ![Dolly](https://files.training.databricks.com/images/llm/dolly_small.png) Learning Objectives
 # MAGIC 1. Learn representation bias in training data 
 # MAGIC 1. Use Hugging Face to calculate toxicity score
 # MAGIC 1. Use SHAP to generate explanation on model output
@@ -19,17 +7,7 @@
 
 # COMMAND ----------
 
-# MAGIC %md
-# MAGIC
-# MAGIC ## Classroom Setup
-
-# COMMAND ----------
-
 # MAGIC %pip install disaggregators==0.1.2 https://github.com/explosion/spacy-models/releases/download/en_core_web_lg-3.5.0/en_core_web_lg-3.5.0-py3-none-any.whl
-
-# COMMAND ----------
-
-# MAGIC %run ../Includes/Classroom-Setup
 
 # COMMAND ----------
 
@@ -376,11 +354,3 @@ shap.plots.text(shap_values3)
 # MAGIC
 # MAGIC
 # MAGIC How we can use contrastive explanation to improve LLMs is still an ongoing research! It's not surprising that the research so far has shown that contrastive explanation can help us characterize how LLMs decide which output token to predict. It's an exciting space to watch for development! 
-
-# COMMAND ----------
-
-# MAGIC %md-sandbox
-# MAGIC &copy; 2023 Databricks, Inc. All rights reserved.<br/>
-# MAGIC Apache, Apache Spark, Spark and the Spark logo are trademarks of the <a href="https://www.apache.org/">Apache Software Foundation</a>.<br/>
-# MAGIC <br/>
-# MAGIC <a href="https://databricks.com/privacy-policy">Privacy Policy</a> | <a href="https://databricks.com/terms-of-use">Terms of Use</a> | <a href="https://help.databricks.com/">Support</a>

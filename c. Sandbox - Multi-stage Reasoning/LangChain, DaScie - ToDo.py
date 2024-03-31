@@ -1,31 +1,4 @@
 # Databricks notebook source
-# MAGIC %md-sandbox
-# MAGIC
-# MAGIC <div style="text-align: center; line-height: 0; padding-top: 9px;">
-# MAGIC   <img src="https://databricks.com/wp-content/uploads/2018/03/db-academy-rgb-1200px.png" alt="Databricks Learning" style="width: 600px">
-# MAGIC </div>
-
-# COMMAND ----------
-
-# MAGIC %md
-# MAGIC
-# MAGIC # Lab: Adding Our Own Data to a Multi-Stage Reasoning System
-# MAGIC
-# MAGIC ### Working with external knowledge bases 
-# MAGIC In this notebook we're going to augment the knowledge base of our LLM with additional data. We will split the notebook into two halves:
-# MAGIC - First, we will walk through how to load in a relatively small, local text file using a `DocumentLoader`, split it into chunks, and store it in a vector database using `ChromaDB`.
-# MAGIC - Second, you will get a chance to show what you've learned by building a larger system with the complete works of Shakespeare. 
-# MAGIC ----
-# MAGIC ### ![Dolly](https://files.training.databricks.com/images/llm/dolly_small.png) Learning Objectives
-# MAGIC
-# MAGIC By the end of this notebook, you will be able to:
-# MAGIC 1. Add external local data to your LLM's knowledge base via a vector database.
-# MAGIC 2. Construct a Question-Answer(QA) LLMChain to "talk to your data."
-# MAGIC 3. Load external data sources from remote locations and store in a vector database.
-# MAGIC 4. Leverage different retrieval methods to search over your data. 
-
-# COMMAND ----------
-
 # MAGIC %md
 # MAGIC
 # MAGIC ## Classroom Setup
@@ -37,10 +10,6 @@
 # COMMAND ----------
 
 dbutils.library.restartPython()
-
-# COMMAND ----------
-
-# MAGIC %run ../Includes/Classroom-Setup
 
 # COMMAND ----------
 
@@ -292,19 +261,5 @@ dbTestQuestion3_4(qa, query_results_romeo)
 
 # COMMAND ----------
 
-# MAGIC %md ## Submit your Results (edX Verified Only)
-# MAGIC
-# MAGIC To get credit for this lab, click the submit button in the top right to report the results. If you run into any issues, click `Run` -> `Clear state and run all`, and make sure all tests have passed before re-submitting. If you accidentally deleted any tests, take a look at the notebook's version history to recover them or reload the notebooks.
-
-# COMMAND ----------
-
 tmp_laptop_dir.cleanup()
 tmp_shakespeare_dir.cleanup()
-
-# COMMAND ----------
-
-# MAGIC %md-sandbox
-# MAGIC &copy; 2023 Databricks, Inc. All rights reserved.<br/>
-# MAGIC Apache, Apache Spark, Spark and the Spark logo are trademarks of the <a href="https://www.apache.org/">Apache Software Foundation</a>.<br/>
-# MAGIC <br/>
-# MAGIC <a href="https://databricks.com/privacy-policy">Privacy Policy</a> | <a href="https://databricks.com/terms-of-use">Terms of Use</a> | <a href="https://help.databricks.com/">Support</a>

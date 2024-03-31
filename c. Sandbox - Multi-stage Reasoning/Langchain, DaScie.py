@@ -1,12 +1,4 @@
 # Databricks notebook source
-# MAGIC %md-sandbox
-# MAGIC
-# MAGIC <div style="text-align: center; line-height: 0; padding-top: 9px;">
-# MAGIC   <img src="https://databricks.com/wp-content/uploads/2018/03/db-academy-rgb-1200px.png" alt="Databricks Learning" style="width: 600px">
-# MAGIC </div>
-
-# COMMAND ----------
-
 # MAGIC %md
 # MAGIC
 # MAGIC # Building Multi-stage Reasoning Systems with LangChain
@@ -16,23 +8,6 @@
 # MAGIC - The first, code named `JekyllHyde` will be a prototype AI self-commenting-and-moderating tool that will create new reaction comments to a piece of text with one LLM and use another LLM to critique those comments and flag them if they are negative. To build this we will walk through the steps needed to construct prompts and chains, as well as multiple LLM Chains that take multiple inputs, both from the previous LLM and external. 
 # MAGIC - The second system, codenamed `DaScie` (pronounced "dae-see") will take the form of an LLM-based agent that will be tasked with performing data science tasks on data that will be stored in a vector database using ChromaDB. We will use LangChain agents as well as the ChromaDB library, as well as the Pandas Dataframe Agent and python REPL (Read-Eval-Print Loop) tool.
 # MAGIC ----
-# MAGIC ### ![Dolly](https://files.training.databricks.com/images/llm/dolly_small.png) Learning Objectives
-# MAGIC
-# MAGIC By the end of this notebook, you will be able to:
-# MAGIC 1. Build prompt template and create new prompts with different inputs
-# MAGIC 2. Create basic LLM chains to connect prompts and LLMs.
-# MAGIC 3. Construct sequential chains of multiple `LLMChains` to perform multi-stage reasoning analysis. 
-# MAGIC 4. Use langchain agents to build semi-automated systems with an LLM-centric agent to perform internet searches and dataset analysis.
-
-# COMMAND ----------
-
-# MAGIC %md
-# MAGIC
-# MAGIC ## Classroom Setup
-
-# COMMAND ----------
-
-# MAGIC %run ../Includes/Classroom-Setup
 
 # COMMAND ----------
 
@@ -353,11 +328,3 @@ dascie.run("Analyze this data, tell me any interesting trends. Make some pretty 
 dascie.run(
     "Train a random forest regressor to predict salary using the most important features. Show me the what variables are most influential to this model"
 )
-
-# COMMAND ----------
-
-# MAGIC %md-sandbox
-# MAGIC &copy; 2023 Databricks, Inc. All rights reserved.<br/>
-# MAGIC Apache, Apache Spark, Spark and the Spark logo are trademarks of the <a href="https://www.apache.org/">Apache Software Foundation</a>.<br/>
-# MAGIC <br/>
-# MAGIC <a href="https://databricks.com/privacy-policy">Privacy Policy</a> | <a href="https://databricks.com/terms-of-use">Terms of Use</a> | <a href="https://help.databricks.com/">Support</a>

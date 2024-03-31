@@ -1,35 +1,16 @@
 # Databricks notebook source
-# MAGIC %md-sandbox
-# MAGIC
-# MAGIC <div style="text-align: center; line-height: 0; padding-top: 9px;">
-# MAGIC   <img src="https://databricks.com/wp-content/uploads/2018/03/db-academy-rgb-1200px.png" alt="Databricks Learning" style="width: 600px">
-# MAGIC </div>
-
-# COMMAND ----------
-
 # MAGIC %md
 # MAGIC
 # MAGIC # Evaluating Large Language Models (LLMs)
 # MAGIC This notebook demonstrates methods for evaluating LLMs.  We focus on the task of summarization and cover accuracy, ROUGE-N, and perplexity.
 # MAGIC
-# MAGIC ### ![Dolly](https://files.training.databricks.com/images/llm/dolly_small.png) Learning Objectives
 # MAGIC 1. Know how to compute ROUGE-N and other metrics.
 # MAGIC 2. Gain an intuitive understanding of ROUGE-N.
 # MAGIC 3. Test various models and model sizes on the same data, and compare their results.
 
 # COMMAND ----------
 
-# MAGIC %md
-# MAGIC
-# MAGIC ## Classroom Setup
-
-# COMMAND ----------
-
 # MAGIC %pip install rouge_score==0.1.2
-
-# COMMAND ----------
-
-# MAGIC %run ../Includes/Classroom-Setup
 
 # COMMAND ----------
 
@@ -565,11 +546,3 @@ display(
         }
     )
 )
-
-# COMMAND ----------
-
-# MAGIC %md-sandbox
-# MAGIC &copy; 2023 Databricks, Inc. All rights reserved.<br/>
-# MAGIC Apache, Apache Spark, Spark and the Spark logo are trademarks of the <a href="https://www.apache.org/">Apache Software Foundation</a>.<br/>
-# MAGIC <br/>
-# MAGIC <a href="https://databricks.com/privacy-policy">Privacy Policy</a> | <a href="https://databricks.com/terms-of-use">Terms of Use</a> | <a href="https://help.databricks.com/">Support</a>

@@ -1,24 +1,9 @@
 # Databricks notebook source
-# MAGIC %md-sandbox
-# MAGIC
-# MAGIC <div style="text-align: center; line-height: 0; padding-top: 9px;">
-# MAGIC   <img src="https://databricks.com/wp-content/uploads/2018/03/db-academy-rgb-1200px.png" alt="Databricks Learning" style="width: 600px">
-# MAGIC </div>
-
-# COMMAND ----------
-
 # MAGIC %md
-# MAGIC
-# MAGIC # Fine-tuning LLMs
-# MAGIC  Many LLMs are general purpose models trained on a broad range of data and use cases. This enables them to perform well in a variety of applications, as shown in previous modules. It is not uncommon though to find situations where applying a general purpose model performs unacceptably for specific dataset or use case. This often does not mean that the general purpose model is unusable. Perhaps, with some new data and additional training the model could be improved, or fine-tuned, such that it produces acceptable results for the specific use case.
-# MAGIC  
-# MAGIC  Fine-tuning uses a pre-trained model as a base and continues to train it with a new, task targeted dataset. Conceptually, fine-tuning leverages that which has already been learned by a model and aims to focus its learnings further for a specific task.
-# MAGIC
-# MAGIC  It is important to recognize that fine-tuning is model training. The training process remains a resource intensive, and time consuming effort. Albeit fine-tuning training time is greatly shortened as a result of having started from a pre-trained model. The model training process can be accelerated through the use of tools like Microsoft's [DeepSpeed](https://github.com/microsoft/DeepSpeed).
+# MAGIC The model training process can be accelerated through the use of tools like Microsoft's [DeepSpeed](https://github.com/microsoft/DeepSpeed).
 # MAGIC
 # MAGIC  This notebook will explore how to perform fine-tuning at scale.
-# MAGIC
-# MAGIC ### ![Dolly](https://files.training.databricks.com/images/llm/dolly_small.png) Learning Objectives
+# MAGIC  
 # MAGIC 1. Prepare a novel dataset
 # MAGIC 1. Fine-tune the `t5-small` model to classify movie reviews.
 # MAGIC 1. Leverage DeepSpeed to enhance training process.
@@ -26,12 +11,6 @@
 # COMMAND ----------
 
 assert "gpu" in spark.conf.get("spark.databricks.clusterUsageTags.sparkVersion"), "THIS LAB REQUIRES THAT A GPU MACHINE AND RUNTIME IS UTILIZED."
-
-# COMMAND ----------
-
-# MAGIC %md
-# MAGIC
-# MAGIC ## Classroom Setup
 
 # COMMAND ----------
 
@@ -471,19 +450,8 @@ display(pdf)
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC
-# MAGIC ## Clean up Classroom
-# MAGIC
-# MAGIC Run the following cell to remove lessons-specific assets created during this lesson.
+# MAGIC Clean Up
 
 # COMMAND ----------
 
 tmpdir.cleanup()
-
-# COMMAND ----------
-
-# MAGIC %md-sandbox
-# MAGIC &copy; 2023 Databricks, Inc. All rights reserved.<br/>
-# MAGIC Apache, Apache Spark, Spark and the Spark logo are trademarks of the <a href="https://www.apache.org/">Apache Software Foundation</a>.<br/>
-# MAGIC <br/>
-# MAGIC <a href="https://databricks.com/privacy-policy">Privacy Policy</a> | <a href="https://databricks.com/terms-of-use">Terms of Use</a> | <a href="https://help.databricks.com/">Support</a>
